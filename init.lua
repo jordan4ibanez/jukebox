@@ -10,19 +10,10 @@ minetest.register_node("jukebox:jukebox", {
 	
 	--Make it so that the particles are set whenever a player starts the song
 
-
-
-	--make a slot on the top in the texture, OR overlap the texture of the record holder thing with the record so it looks cool and like it's
-	--actually playing it (if possible)
-
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 
 		--try to insert record, or, play the music
 		if itemstack:to_table() ~= nil then
-			--do this so you can stop music 
-			--if music[clicker:get_player_name()] ~= nil and minetest.get_item_group(itemstack:to_table().name, "record") == 0 then
-			--	minetest.sound_stop(music[clicker:get_player_name()] )
-			--end
 			--set the string to the record info
 			local meta = minetest.get_meta(pos)
 			if minetest.get_item_group(itemstack:to_table().name, "record") == 1 and meta:get_string("record") == "" then
@@ -366,6 +357,7 @@ minetest.register_node("jukebox:jukebox", {
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		end
+		--remove metadata
 		meta:set_string("record", nil)
 		meta:set_string("infotext", nil)
 
@@ -435,6 +427,7 @@ minetest.register_node("jukebox:jukebox", {
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		end
+		--remove metadata
 		meta:set_string("record", nil)
 		meta:set_string("infotext", nil)
 	end,

@@ -169,9 +169,28 @@ end
 
 minetest.register_node("jukebox:jukebox", {
 	description = "Jukebox",
-	tiles = {"default_wood.png^jukebox_slot.png^[transformFXR90","default_wood.png","default_wood.png^note.png","default_wood.png^note.png","default_wood.png^note.png","default_wood.png^note.png",},
+	tiles = {"default_wood.png^jukebox_slot.png^[transformFXR90^jukebox_frame.png","default_wood.png^jukebox_frame.png","default_wood.png^note.png^jukebox_frame.png","default_wood.png^note.png^jukebox_frame.png","default_wood.png^note.png^jukebox_frame.png","default_wood.png^note.png^jukebox_frame.png",},
 	groups = {cracky=3, stone=1},
-	
+	paramtype = "light",
+	drawtype = "nodebox",
+	selection_box = {type="regular"},
+	node_box = {
+			type = "fixed",
+			fixed = {
+			--jukebox core - divide by 16 because 16 pixels
+			{-7/16, -7/16, -7/16, 7/16, 7/16, 7/16},
+			--top
+			{-8/16, 7/16, -8/16, 8/16, 8/16, 8/16},
+			--bottom
+			{-8/16, -8/16, -8/16, 8/16, -7/16, 8/16},
+			--arches
+			{-8/16, -8/16, -8/16, -7/16, 8/16, -7/16},
+			{7/16, -8/16, 7/16, 8/16, 8/16, 8/16},
+			{7/16, -8/16, -8/16, 8/16, 8/16, -7/16},
+			{-8/16, -8/16, 7/16, -7/16, 8/16, 8/16},
+
+			},
+		},
 	--Make it so that the particles are set whenever a player starts the song
 
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
@@ -250,58 +269,59 @@ minetest.register_node("jukebox:jukebox", {
 		if meta:get_string("current") ~= nil and meta:get_string("current") ~= "" then
 			minetest.sound_stop(meta:get_string("current"))
 		end
-		--shoot up the record that's inside 
+		--shoot up the record that's inside
+		local newpos = {x=pos.x,y=pos.y+0.6,z=pos.z} --this stops the record from getting stuck
 		if record == "static" then
-			local item = minetest.add_item(pos, "jukebox:blank_record")
+			local item = minetest.add_item(newpos, "jukebox:blank_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		elseif record == "clouds" then
-			local item = minetest.add_item(pos, "jukebox:clouds_record")
+			local item = minetest.add_item(newpos, "jukebox:clouds_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		elseif record == "cosmic_tingles" then
-			local item = minetest.add_item(pos, "jukebox:cosmic_tingles_record")
+			local item = minetest.add_item(newpos, "jukebox:cosmic_tingles_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		elseif record == "euphoria" then
-			local item = minetest.add_item(pos, "jukebox:euphoria_record")
+			local item = minetest.add_item(newpos, "jukebox:euphoria_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		elseif record == "happy_clouds" then
-			local item = minetest.add_item(pos, "jukebox:happy_clouds_record")
+			local item = minetest.add_item(newpos, "jukebox:happy_clouds_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		elseif record == "moon_fight" then
-			local item = minetest.add_item(pos, "jukebox:moon_fight_record")
+			local item = minetest.add_item(newpos, "jukebox:moon_fight_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		elseif record == "mountain" then
-			local item = minetest.add_item(pos, "jukebox:mountain_record")
+			local item = minetest.add_item(newpos, "jukebox:mountain_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		elseif record == "ochanomizu" then
-			local item = minetest.add_item(pos, "jukebox:ochanomizu_record")
+			local item = minetest.add_item(newpos, "jukebox:ochanomizu_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		elseif record == "sleep_trance" then
-			local item = minetest.add_item(pos, "jukebox:sleep_trance_record")
+			local item = minetest.add_item(newpos, "jukebox:sleep_trance_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 		elseif record == "treppe" then
-			local item = minetest.add_item(pos, "jukebox:treppe_record")
+			local item = minetest.add_item(newpos, "jukebox:treppe_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 
 		elseif record == "wet_ashtray" then
-			local item = minetest.add_item(pos, "jukebox:wet_ashtray_record")
+			local item = minetest.add_item(newpos, "jukebox:wet_ashtray_record")
 			local entity = item:get_luaentity()
 			item:setvelocity({x=math.random() + math.random(-1,1),y=6,z=math.random() + math.random(-1,1)})
 

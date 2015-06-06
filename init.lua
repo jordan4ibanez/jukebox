@@ -2,6 +2,143 @@
 --Juke boxes help you feel more immersed in the game
 --play music and particles to only people who right click the juke box
 music = {}
+function jukebox_music_logic(pos)
+	local meta = minetest.get_meta(pos)
+	local record = meta:get_string("record")
+	local makeparts = false
+
+	--do this so you can turn music on and off - this is a basic logic gate
+	if meta:get_string("playing") == "0" or meta:get_string("playing") == "" then
+		--print("starting")
+		meta:set_string("playing", 1)
+	elseif meta:get_string("playing") == "1" then
+		--print("stopping")
+		meta:set_string("playing", 0)
+	end
+	-- don't play if not playing
+	if meta:get_string("playing") == "0" then
+		--print("STOP THIS NOW!")
+		--stop the current song if playing
+		if meta:get_string("current") ~= nil and meta:get_string("current") ~= "" then
+			minetest.sound_stop(meta:get_string("current"))
+		end
+		return -- return so that it doesn't play the song
+	end
+	--the records -- probably put this mess in a table
+	if record == "static" then
+		local new_song = minetest.sound_play("static", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	elseif record == "clouds" then
+		local new_song = minetest.sound_play("clouds", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	elseif record == "cosmic_tingles" then
+		local new_song = minetest.sound_play("cosmic_tingles", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	elseif record == "euphoria" then
+		local new_song = minetest.sound_play("euphoria", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	elseif record == "happy_clouds" then
+		local new_song = minetest.sound_play("happy_clouds", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	elseif record == "moon_fight" then
+		local new_song = minetest.sound_play("moon_fight", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	elseif record == "mountain" then
+		local new_song = minetest.sound_play("mountain", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	elseif record == "ochanomizu" then
+		local new_song = minetest.sound_play("ochanomizu", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	elseif record == "sleep_trance" then
+		local new_song = minetest.sound_play("sleep_trance", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	elseif record == "treppe" then
+		local new_song = minetest.sound_play("treppe", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	elseif record == "wet_ashtray" then
+		local new_song = minetest.sound_play("wet_ashtray", {
+			pos = pos,
+			max_hear_distance = 30,
+			gain = 1,
+		})
+		meta:set_string("current", new_song)
+		--makeparts = true
+	end
+	--figure out a way to make this not break other particle spawners
+	--[[
+	if makeparts == true then
+		local particle = minetest.add_particlespawner({
+			amount = 1,
+			time = 0,
+			minpos = {x=pos.x, y=pos.y, z=pos.z},
+			maxpos = {x=pos.x, y=pos.y, z=pos.z},
+			minvel = {x=0, y=2, z=0},
+			maxvel = {x=0, y=2, z=0},
+			minacc = {x=0, y=0, z=0},
+			maxacc = {x=0, y=0, z=0},
+			minexptime = 1,
+			maxexptime = 1,
+			minsize = 5,
+			maxsize = 5,
+			collisiondetection = false,
+			vertical = true,
+			texture = "note.png",
+		})
+		meta:set_string("particle", particle)
+		print(particle)
+	end
+	]]--
+end
 
 minetest.register_node("jukebox:jukebox", {
 	description = "Jukebox",
@@ -65,230 +202,15 @@ minetest.register_node("jukebox:jukebox", {
 
 				--remove record
 				itemstack:take_item()
-			--if it's not a record, play music if there's a record inserted
+			--if it's not a record, do logic
 			elseif minetest.get_item_group(itemstack:to_table().name, "record") == 0 then
-				local meta = minetest.get_meta(pos)
-				local record = meta:get_string("record")
-				local makeparts = false
-				--stop the current song if playing and delete particle spawner
-				if meta:get_string("current") ~= nil and meta:get_string("current") ~= "" then
-					minetest.sound_stop(meta:get_string("current"))
-				end
-				--the records -- probably put this mess in a table
-				if record == "static" then
-					local new_song = minetest.sound_play("static", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				elseif record == "clouds" then
-					local new_song = minetest.sound_play("clouds", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				elseif record == "cosmic_tingles" then
-					local new_song = minetest.sound_play("cosmic_tingles", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				elseif record == "euphoria" then
-					local new_song = minetest.sound_play("euphoria", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				elseif record == "happy_clouds" then
-					local new_song = minetest.sound_play("happy_clouds", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				elseif record == "moon_fight" then
-					local new_song = minetest.sound_play("moon_fight", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				elseif record == "mountain" then
-					local new_song = minetest.sound_play("mountain", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				elseif record == "ochanomizu" then
-					local new_song = minetest.sound_play("ochanomizu", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				elseif record == "sleep_trance" then
-					local new_song = minetest.sound_play("sleep_trance", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				elseif record == "treppe" then
-					local new_song = minetest.sound_play("treppe", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				elseif record == "wet_ashtray" then
-					local new_song = minetest.sound_play("wet_ashtray", {
-						pos = pos,
-						max_hear_distance = 30,
-						gain = 1,
-					})
-					meta:set_string("current", new_song)
-					--makeparts = true
-				end
-				--figure out a way to make this not break other particle spawners
-				--[[
-				if makeparts == true then
-					local particle = minetest.add_particlespawner({
-						amount = 1,
-						time = 0,
-						minpos = {x=pos.x, y=pos.y, z=pos.z},
-						maxpos = {x=pos.x, y=pos.y, z=pos.z},
-						minvel = {x=0, y=2, z=0},
-						maxvel = {x=0, y=2, z=0},
-						minacc = {x=0, y=0, z=0},
-						maxacc = {x=0, y=0, z=0},
-						minexptime = 1,
-						maxexptime = 1,
-						minsize = 5,
-						maxsize = 5,
-						collisiondetection = false,
-						vertical = true,
-						texture = "note.png",
-					})
-					meta:set_string("particle", particle)
-					print(particle)
-				end
-				]]--
+				jukebox_music_logic(pos)
 			end
-		-- the player's hand, play music if there's a record inserted
+		-- the player's hand, do logic
 		else
-			--play music if there's a record in it
-			local meta = minetest.get_meta(pos)
-			local record = meta:get_string("record")
-			--stop the current song if playing
-			if meta:get_string("current") ~= nil and meta:get_string("current") ~= "" then
-				minetest.sound_stop(meta:get_string("current"))
-			end
-			--the records -- probably put this mess in a table
-			if record == "static" then
-				local new_song = minetest.sound_play("static", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			elseif record == "clouds" then
-				local new_song = minetest.sound_play("clouds", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			elseif record == "cosmic_tingles" then
-				local new_song = minetest.sound_play("cosmic_tingles", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			elseif record == "euphoria" then
-				local new_song = minetest.sound_play("euphoria", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			elseif record == "happy_clouds" then
-				local new_song = minetest.sound_play("happy_clouds", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			elseif record == "moon_fight" then
-				local new_song = minetest.sound_play("moon_fight", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			elseif record == "mountain" then
-				local new_song = minetest.sound_play("mountain", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			elseif record == "ochanomizu" then
-				local new_song = minetest.sound_play("ochanomizu", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			elseif record == "sleep_trance" then
-				local new_song = minetest.sound_play("sleep_trance", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			elseif record == "treppe" then
-				local new_song = minetest.sound_play("treppe", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			elseif record == "wet_ashtray" then
-				local new_song = minetest.sound_play("wet_ashtray", {
-					pos = pos,
-					max_hear_distance = 30,
-					gain = 1,
-				})
-				meta:set_string("current", new_song)
-				--makeparts = true
-			end
+			jukebox_music_logic(pos)
 		end
+		
 		return(itemstack)
 	end,
 

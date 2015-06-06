@@ -2,7 +2,107 @@ This is all cc non profit so no suing!
 
 I also am literally copy-pasting the license info from freemusicarchive.org so this is a mess
 
-Converted to ogg using dir2ogg
+Converted to ogg using dir2ogg on Linux Mint something or another
+
+
+Static
+https://www.freesound.org/people/lonemonk/sounds/39711/
+
+
+“Treppe 3” (by Rod Hamilton)
+
+
+Treppe 3 by Rod Hamilton is licensed under a Attribution-NoDerivatives 4.0 International License.
+
+
+“Cosmic Tingles (piano version)” (by Lee Rosevere)
+
+Cosmic Tingles (piano version) by Lee Rosevere is licensed under a Attribution-NonCommercial License.
+For more permissions:
+contact artist
+
+
+“Happy Little Clouds” (by Lee Rosevere)
+
+
+Happy Little Clouds by Lee Rosevere is licensed under a Attribution-NonCommercial License.
+For more permissions:
+contact artist
+
+
+“Mountain With Many Rivers” (by Lee Rosevere)
+
+
+Mountain With Many Rivers by Lee Rosevere is licensed under a Attribution-NonCommercial License.
+For more permissions:
+contact artist
+
+“Soft Euphoria” (by Lee Rosevere)
+
+
+Soft Euphoria by Lee Rosevere is licensed under a Attribution-NonCommercial License.
+For more permissions:
+contact artist
+
+“Sleep Trance” (by Lee Rosevere)
+
+
+Sleep Trance by Lee Rosevere is licensed under a Attribution-NonCommercial License.
+For more permissions:
+contact artist
+
+“Ochanomizu” (by Project 5am)
+
+
+Ochanomizu by Project 5am is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License.
+For more permissions:
+contact artist
+
+“Quixotes Of Moons Fight The Windmills Of Brixton” (by Project 5am)
+
+
+Quixotes Of Moons Fight The Windmills Of Brixton by Project 5am is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License.
+For more permissions:
+contact artist
+
+“Wet Ashtray” (by Project 5am)
+
+
+Wet Ashtray by Project 5am is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License.
+For more permissions:
+contact artist
+
+“Polar Stratospheric Clouds” (by Project 5am)
+
+
+Polar Stratospheric Clouds by Project 5am is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License.
+For more permissions:
+contact artist
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This is the old list in case you want to find new music to listen to, have fun!
+These songs were removed because they don't fit minetest gameplay/graphics/aesthetic very well or they're too big.
+
+
+“Gentle Whispering” (by Lee Rosevere)
+
+
+Gentle Whispering by Lee Rosevere is licensed under a Attribution-NonCommercial License.
+For more permissions:
+contact artist
+
 
 “Presetum Operandi” (by Mangrove)
 

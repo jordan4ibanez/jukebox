@@ -1,7 +1,14 @@
 --idea: juke boxes emit different color note particles while playing based on the cd inside, 
 --Juke boxes help you feel more immersed in the game
---play music and particles to only people who right click the juke box
+
 music = {}
+juke_particles = {} --this is the partcle table, it's so the jukebox doesn't delete other particle spawners or create catostrophic amounts of particles
+
+
+--put music definitions into a table or something
+
+
+--this is the logic for playing/stopping the jukebox
 function jukebox_music_logic(pos)
 	local meta = minetest.get_meta(pos)
 	local record = meta:get_string("record")
@@ -21,6 +28,15 @@ function jukebox_music_logic(pos)
 		--stop the current song if playing
 		if meta:get_string("current") ~= nil and meta:get_string("current") ~= "" then
 			minetest.sound_stop(meta:get_string("current"))
+		end
+		--remove particle spawner
+		if juke_particles[pos.x] ~= nil then
+			if juke_particles[pos.x][pos.y] ~= nil then
+				if juke_particles[pos.x][pos.y][pos.z] ~= nil then
+					minetest.delete_particlespawner(juke_particles[pos.x][pos.y][pos.z])
+					juke_particles[pos.x][pos.y][pos.z] = nil
+				end
+			end
 		end
 		return -- return so that it doesn't play the song
 	end
@@ -114,9 +130,19 @@ function jukebox_music_logic(pos)
 		meta:set_string("current", new_song)
 		--makeparts = true
 	end
-	--figure out a way to make this not break other particle spawners
-	--[[
-	if makeparts == true then
+	--only create particle spawner if record inserted
+	if record ~= "" then
+		--create particles table
+		if juke_particles[pos.x] == nil then
+			juke_particles[pos.x] = {}
+		end
+		if juke_particles[pos.x][pos.y] == nil then
+			juke_particles[pos.x][pos.y] = {}
+		end
+		if juke_particles[pos.x][pos.y][pos.z] == nil then
+			juke_particles[pos.x][pos.y][pos.z] = {}
+		end
+		--create particle spawner
 		local particle = minetest.add_particlespawner({
 			amount = 1,
 			time = 0,
@@ -134,10 +160,11 @@ function jukebox_music_logic(pos)
 			vertical = true,
 			texture = "note.png",
 		})
-		meta:set_string("particle", particle)
-		print(particle)
+		--add the particle spawner to the global table
+		juke_particles[pos.x][pos.y][pos.z] = particle
 	end
-	]]--
+
+
 end
 
 minetest.register_node("jukebox:jukebox", {
@@ -282,6 +309,15 @@ minetest.register_node("jukebox:jukebox", {
 		--remove metadata
 		meta:set_string("record", nil)
 		meta:set_string("infotext", nil)
+		--remove particle spawner
+		if juke_particles[pos.x] ~= nil then
+			if juke_particles[pos.x][pos.y] ~= nil then
+				if juke_particles[pos.x][pos.y][pos.z] ~= nil then
+					minetest.delete_particlespawner(juke_particles[pos.x][pos.y][pos.z])
+					juke_particles[pos.x][pos.y][pos.z] = nil
+				end
+			end
+		end
 
 	end,
 
@@ -352,6 +388,18 @@ minetest.register_node("jukebox:jukebox", {
 		--remove metadata
 		meta:set_string("record", nil)
 		meta:set_string("infotext", nil)
+		--remove metadata
+		meta:set_string("record", nil)
+		meta:set_string("infotext", nil)
+		--remove particle spawner
+		if juke_particles[pos.x] ~= nil then
+			if juke_particles[pos.x][pos.y] ~= nil then
+				if juke_particles[pos.x][pos.y][pos.z] ~= nil then
+					minetest.delete_particlespawner(juke_particles[pos.x][pos.y][pos.z])
+					juke_particles[pos.x][pos.y][pos.z] = nil
+				end
+			end
+		end
 	end,
 
 })

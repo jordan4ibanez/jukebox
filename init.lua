@@ -4,10 +4,18 @@
 music = {}
 juke_particles = {} --this is the partcle table, it's so the jukebox doesn't delete other particle spawners or create catostrophic amounts of particles
 
+--[[
+put music definitions into a table or something
+Make particles sway
+make the note on the block smaller
+stop the particles and meta at the end of the song by using minetest.after() somehow get the song length or input song length manually
 
---put music definitions into a table or something
+use a mesh for the jukebox -> make it more of the style of a glass top record player http://ecx.images-amazon.com/images/I/61Eu8wGSRlL._SL1500_.jpg -> overlay the record texture on top so that you can physically see the
+-record that's being played
 
-
+possibly change mod name to record player
+mp3 players - maybe?
+]]--
 --this is the logic for playing/stopping the jukebox
 function jukebox_music_logic(pos)
 	local meta = minetest.get_meta(pos)
